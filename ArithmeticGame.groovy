@@ -45,4 +45,20 @@ def feedback = ''
         }
       }
     }
+
+    def add (def firstNumber, def secondNumber){
+        firstNumber + secondNumber
+    }
+
+    def subtract (def firstNumber, def secondNumber){
+        firstNumber - secondNumber
+    }
+
+    def multiply (def firstNumber, def secondNumber){
+        firstNumber * secondNumber
+    }
+
+    def divide (def firstNumber, def secondNumber){
+        firstNumber / secondNumber
+    }
   }
