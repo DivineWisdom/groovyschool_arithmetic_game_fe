@@ -2,14 +2,15 @@
 
 import groovyx.javafx.GroovyFX
 import groovyx.javafx.SceneGraphBuilder
+import java.util.Random
 
 GroovyFX.start {
 def sg = new SceneGraphBuilder()
 def score = 0
 def operation = 'Addition'
 def sign = '+'
-def firstNumber = 0
-def secondNumber = 0
+def firstNumber = getRandomInterger()
+def secondNumber = getRandomInterger()
 def feedback = ''
 
   sg.stage(title: "Groovy School Arithmetic Game", visible: true) {
@@ -44,21 +45,26 @@ def feedback = ''
             }
         }
       }
-    }
+    } 
 
-    def add (def firstNumber, def secondNumber){
+  }
+
+    def add (firstNumber, secondNumber){
         firstNumber + secondNumber
     }
 
-    def subtract (def firstNumber, def secondNumber){
+    def subtract (firstNumber, secondNumber){
         firstNumber - secondNumber
     }
 
-    def multiply (def firstNumber, def secondNumber){
+    def multiply (firstNumber, secondNumber){
         firstNumber * secondNumber
     }
 
-    def divide (def firstNumber, def secondNumber){
+    def divide (firstNumber, secondNumber){
         firstNumber / secondNumber
     }
-  }
+
+    def getRandomInterger(){
+       Math.abs(new Random().nextInt()%10) + 1
+    }
