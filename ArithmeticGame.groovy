@@ -12,7 +12,8 @@ def sign = '+'
 def firstNumber = getRandomInterger()
 def secondNumber = getRandomInterger()
 def feedback = ''
-def operationLable, signLable, firstNumberLable, secondNumberLable
+def operationLable, signLable, firstNumberLable, secondNumberLable, feedbackLable, scoreLable
+def answerTextField
 
   sg.stage(title: "Groovy School Arithmetic Game", visible: true) {
     scene(width: 400, height: 500) {
@@ -21,6 +22,7 @@ def operationLable, signLable, firstNumberLable, secondNumberLable
                 menu('Operation'){
                     menuItem("Addition", onAction:{ 
                         operationLable.setText("Addition")
+                        operation = 'Addition'
                         sign = "+"
                         signLable.setText("+")
                         firstNumber = getRandomInterger()
@@ -30,6 +32,7 @@ def operationLable, signLable, firstNumberLable, secondNumberLable
                     })
                     menuItem("Subtraction", onAction:{ 
                         operationLable.setText("Subtraction")
+                        operation = 'Subtraction'
                         sign = "-"
                         signLable.setText("-")
                         firstNumber = getRandomInterger()
@@ -39,6 +42,7 @@ def operationLable, signLable, firstNumberLable, secondNumberLable
                     })
                     menuItem("Multiplication", onAction:{ 
                         operationLable.setText("Multiplication")
+                        operation = 'Multiplication'
                         sign = "X"
                         signLable.setText("X")
                         firstNumber = getRandomInterger()
@@ -48,18 +52,19 @@ def operationLable, signLable, firstNumberLable, secondNumberLable
                     })
                     menuItem("Division", onAction:{ 
                         operationLable.setText("Division")
+                        operation = 'Division'
                         sign = "/"
                         signLable.setText("/")
                         firstNumber = getRandomInterger()
                         firstNumberLable.setText(firstNumber.toString())
                         secondNumber = getRandomInterger()
-                        secondNumberLable.setText(secondNumber.toString)
+                        secondNumberLable.setText(secondNumber.toString())
                     })
                 }
             }
             hbox(spacing: 10, padding:[5,25, 0, 0], alignment: "center_right"){
                 label("Score: ", textFill: black, style: "-fx-font-size: 20pt;")
-                label(score, textFill: black, style: "-fx-font-size: 15pt;")
+                scoreLable = label(score, textFill: black, style: "-fx-font-size: 15pt;")
             }
              vbox(spacing: 10, alignment:'center'){
                 operationLable = label(operation, textFill: black, style: "-fx-font-size: 20pt;")
@@ -68,12 +73,80 @@ def operationLable, signLable, firstNumberLable, secondNumberLable
                 secondNumberLable = label(secondNumber,textFill: black, style: "-fx-font-size: 30pt;")
                 hbox(spacing: 10, alignment:'center'){
                     label('= ', textFill: black, style: "-fx-font-size: 20pt;")
-                    textField(promptText: 'Answer')
+                    answerTextField = textField(promptText: 'Answer')
                 }
-                button('Submit', style: "-fx-font-size: 15pt"){
-
-                }
-                label(text: feedback)
+                button('Submit', style: "-fx-font-size: 15pt", onAction:{
+                    if(answerTextField.getText() == null || answerTextField.getText() == ""){
+                        feedbackLable.setText("Invalid input")
+                    }else{
+                        def answer = Double.parseDouble(answerTextField.getText()) 
+                        if(operation == "Addition"){
+                            if(answer == firstNumber + secondNumber){
+                                score += 10
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Very Good")
+                                firstNumber = getRandomInterger()
+                                firstNumberLable.setText(firstNumber+"")
+                                secondNumber = getRandomInterger()
+                                secondNumberLable.setText(secondNumber+"")
+                                answerTextField.setText("")
+                            } else {
+                                score -= 5
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Try Again")
+                            }
+                        } else if(operation == "Subtraction"){
+                            if(answer == firstNumber - secondNumber){
+                                score += 10
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Very Good")
+                                firstNumber = getRandomInterger()
+                                firstNumberLable.setText(firstNumber+"")
+                                secondNumber = getRandomInterger()
+                                secondNumberLable.setText(secondNumber+"")
+                                answerTextField.setText("")
+                            } else {
+                                score -= 5
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Try Again")
+                            }
+                        } else if(operation == "Multiplication"){
+                            if(answer == firstNumber * secondNumber){
+                                score += 10
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Very Good")
+                                firstNumber = getRandomInterger()
+                                firstNumberLable.setText(firstNumber+"")
+                                secondNumber = getRandomInterger()
+                                secondNumberLable.setText(secondNumber+"")
+                                answerTextField.setText("")
+                            } else {
+                                score -= 5
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Try Again")
+                            }
+                        } else if(operation == "Division"){
+                            def correctAnswer = firstNumber / secondNumber
+                            if(answer == (Math.round(correctAnswer * 10) / 10)){
+                                score += 10
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Very Good")
+                                firstNumber = getRandomInterger()
+                                firstNumberLable.setText(firstNumber+"")
+                                secondNumber = getRandomInterger()
+                                secondNumberLable.setText(secondNumber+"")
+                                answerTextField.setText("")
+                            } else {
+                                score -= 5
+                                scoreLable.setText(score+"")
+                                feedbackLable.setText("Try Again")
+                            }
+                        } else{
+                            feedbackLable.setText("Something went wrong!")
+                        }
+                    }
+                })
+                feedbackLable = label(text: feedback)
             }
         }
       }
