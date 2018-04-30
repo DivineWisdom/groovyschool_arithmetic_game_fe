@@ -24,36 +24,36 @@ def operationLable, signLable, firstNumberLable, secondNumberLable
                         sign = "+"
                         signLable.setText("+")
                         firstNumber = getRandomInterger()
-                        firstNumberLable.setText(firstNumber)
+                        firstNumberLable.setText(firstNumber+"")
                         secondNumber = getRandomInterger()
-                        secondNumberLable.setText(secondNumber)
+                        secondNumberLable.setText(secondNumber+"")
                     })
                     menuItem("Subtraction", onAction:{ 
                         operationLable.setText("Subtraction")
                         sign = "-"
                         signLable.setText("-")
                         firstNumber = getRandomInterger()
-                        firstNumberLable.setText(firstNumber)
+                        firstNumberLable.setText(firstNumber.toString())
                         secondNumber = getRandomInterger()
-                        secondNumberLable.setText(secondNumber)
+                        secondNumberLable.setText(secondNumber.toString())
                     })
                     menuItem("Multiplication", onAction:{ 
                         operationLable.setText("Multiplication")
                         sign = "X"
                         signLable.setText("X")
                         firstNumber = getRandomInterger()
-                        firstNumberLable.setText(firstNumber)
+                        firstNumberLable.setText(firstNumber.toString())
                         secondNumber = getRandomInterger()
-                        secondNumberLable.setText(secondNumber)
+                        secondNumberLable.setText(secondNumber.toString())
                     })
                     menuItem("Division", onAction:{ 
                         operationLable.setText("Division")
                         sign = "/"
                         signLable.setText("/")
                         firstNumber = getRandomInterger()
-                        firstNumberLable.setText(firstNumber)
+                        firstNumberLable.setText(firstNumber.toString())
                         secondNumber = getRandomInterger()
-                        secondNumberLable.setText(secondNumber)
+                        secondNumberLable.setText(secondNumber.toString)
                     })
                 }
             }
