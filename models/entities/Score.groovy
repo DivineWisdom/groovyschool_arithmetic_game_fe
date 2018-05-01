@@ -2,19 +2,21 @@ public class Score {
     
     private def id
     private def points
+    private def date
 
-    public Score (){ }
-
-    public Score (def id, def points){
+    Score(id, points, date) {
         this.id = id
         this.points = points
+        this.date = date
     }
+
+    public Score (){ }
 
     public def getId(){
         this.id
     }
 
-    public setId(def id){
+    public setId(id){
         this.id = id
     }
 
@@ -22,11 +24,19 @@ public class Score {
         this.id
     }
 
-    public setPoints(def points){
+    public setPoints(points){
         this.points = points
     }
 
     public String toString(){
         this.points.toString()
+    }
+
+    public def getDate() {
+        this.date
+    }
+
+    public void setDate(date) {
+        this.date = date
     }
 }
