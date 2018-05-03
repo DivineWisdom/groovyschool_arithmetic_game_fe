@@ -1,10 +1,19 @@
+@GrabConfig(systemClassLoader=true)
 @Grab('org.codehaus.groovyfx:groovyfx:0.1')
+@Grab('org.xerial:sqlite-jdbc:3.6.16')
+import org.sqlite.*
+import java.sql.*
 
 import groovyx.javafx.GroovyFX
 import groovyx.javafx.SceneGraphBuilder
 import java.util.Random
+import models.dao.DbInit
 
 GroovyFX.start {
+
+    db = groovy.sql.Sql.newInstance("jdbc:sqlite:score.db","org.sqlite.JDBC")
+    DbInit.initDb(db)
+
 def sg = new SceneGraphBuilder()
 def score = 0
 def operation = 'Addition'
