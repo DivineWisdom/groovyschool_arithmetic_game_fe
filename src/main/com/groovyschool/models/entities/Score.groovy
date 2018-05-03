@@ -1,3 +1,5 @@
+package models.entities
+
 public class Score {
     
     private def id
@@ -6,6 +8,11 @@ public class Score {
 
     Score(id, points, date) {
         this.id = id
+        this.points = points
+        this.date = date
+    }
+
+    Score(points, date) {
         this.points = points
         this.date = date
     }
@@ -34,6 +41,7 @@ public class Score {
 
     public def getDate() {
         this.date
+
     }
 
     public void setDate(date) {

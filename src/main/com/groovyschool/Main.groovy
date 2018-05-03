@@ -7,22 +7,28 @@ import java.sql.*
 import groovyx.javafx.GroovyFX
 import groovyx.javafx.SceneGraphBuilder
 import java.util.Random
-import models.dao.DbInit
+import models.dao.*
+import models.entities.*
 
 GroovyFX.start {
 
     db = groovy.sql.Sql.newInstance("jdbc:sqlite:score.db","org.sqlite.JDBC")
     DbInit.initDb(db)
 
-def sg = new SceneGraphBuilder()
-def score = 0
-def operation = 'Addition'
-def sign = '+'
-def firstNumber = getRandomInterger()
-def secondNumber = getRandomInterger()
-def feedback = ''
-def operationLable, signLable, firstNumberLable, secondNumberLable, feedbackLable, scoreLable
-def answerTextField
+    def sg = new SceneGraphBuilder()
+    def score = 0
+    def operation = 'Addition'
+    def sign = '+'
+    def firstNumber = getRandomInterger()
+    def secondNumber = getRandomInterger()
+    def feedback = ''
+    def operationLable, signLable, firstNumberLable, secondNumberLable, feedbackLable, scoreLable
+    def answerTextField
+
+    //create a score for  today
+    def currentScore = new Score(score, new java.util.Date())
+    def scoreDAO = new ScoreDAO()
+    scoreDAO.create(currentScore, db)
 
   sg.stage(title: "Groovy School Arithmetic Game", visible: true) {
     scene(width: 400, height: 500) {
@@ -50,7 +56,7 @@ def answerTextField
                         secondNumberLable.setText(secondNumber.toString())
                     })
                     menuItem("Multiplication", onAction:{ 
-                        operationLable.setText("Multiplication")
+                        opesrationLable.setText("Multiplication")
                         operation = 'Multiplication'
                         sign = "X"
                         signLable.setText("X")
@@ -153,6 +159,9 @@ def answerTextField
                         } else{
                             feedbackLable.setText("Something went wrong!")
                         }
+
+                        currentScore = new Score(score, new java.util.Date())
+                        scoreDAO.update(currentScore, db)
                     }
                 })
                 feedbackLable = label(text: feedback)

@@ -1,11 +1,13 @@
 package models.dao
 
-public class ScoreDao {
+import models.entities.*
+
+public class ScoreDAO {
 
     public create(score, db){
         String query = "INSERT INTO scores(points, date) VALUES (" +
-                score.getPoints + "," +
-                score.getDate + ")"
+                score.getPoints() + "," +
+                score.getDate().getTime() + ")"
         db.execute(query)
     }
 
@@ -35,9 +37,9 @@ public class ScoreDao {
 
     public update(score, db){
         String query = "UPDATE scores SET" +
-                " points = " + score.getPoints + " ," +
-                " date = " + score.getDate +
-                " WHERE id = " + score.getId
+                " points = " + score.getPoints() + " ," +
+                " date = " + score.getDate().getTime() +
+                " WHERE id = " + score.getId()
         db.execute(query)
     }
 
