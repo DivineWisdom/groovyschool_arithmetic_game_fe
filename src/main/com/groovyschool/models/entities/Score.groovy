@@ -1,20 +1,23 @@
 package models.entities
 
+import java.text.SimpleDateFormat
+
 public class Score {
     
     private def id
     private def points
     private def date
+    def dateFormater = new SimpleDateFormat("dd/MM/yyyy")
 
     Score(id, points, date) {
         this.id = id
         this.points = points
-        this.date = date
+        this.date = dateFormater.parse(dateFormater.format(date))
     }
 
     Score(points, date) {
         this.points = points
-        this.date = date
+        this.date = dateFormater.parse(dateFormater.format(date))
     }
 
     public Score (){ }
@@ -28,7 +31,7 @@ public class Score {
     }
 
     public def getPoints(){
-        this.id
+        this.points
     }
 
     public setPoints(points){
@@ -40,11 +43,10 @@ public class Score {
     }
 
     public def getDate() {
-        this.date
-
+        dateFormater.parse(dateFormater.format(this.date))
     }
 
     public void setDate(date) {
-        this.date = date
+        this.date = dateFormater.parse(dateFormater.format(date))
     }
 }

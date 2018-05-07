@@ -3,6 +3,7 @@
 @Grab('org.xerial:sqlite-jdbc:3.6.16')
 import org.sqlite.*
 import java.sql.*
+import java.text.SimpleDateFormat
 
 import groovyx.javafx.GroovyFX
 import groovyx.javafx.SceneGraphBuilder
@@ -16,17 +17,17 @@ GroovyFX.start {
     DbInit.initDb(db)
 
     def sg = new SceneGraphBuilder()
-    def score = 0
+    def points = 0
     def operation = 'Addition'
     def sign = '+'
     def firstNumber = getRandomInterger()
     def secondNumber = getRandomInterger()
     def feedback = ''
-    def operationLable, signLable, firstNumberLable, secondNumberLable, feedbackLable, scoreLable
+    def operationLable, signLable, firstNumberLable, secondNumberLable, feedbackLable, pointsLable
     def answerTextField
 
     //create a score for  today
-    def currentScore = new Score(score, new java.util.Date())
+    def currentScore = new Score(points, new java.util.Date())
     def scoreDAO = new ScoreDAO()
     scoreDAO.create(currentScore, db)
 
@@ -78,8 +79,8 @@ GroovyFX.start {
                 }
             }
             hbox(spacing: 10, padding:[5,25, 0, 0], alignment: "center_right"){
-                label("Score: ", textFill: black, style: "-fx-font-size: 20pt;")
-                scoreLable = label(score, textFill: black, style: "-fx-font-size: 15pt;")
+                label("Points: ", textFill: black, style: "-fx-font-size: 20pt;")
+                pointsLable = label(points, textFill: black, style: "-fx-font-size: 15pt;")
             }
              vbox(spacing: 10, alignment:'center'){
                 operationLable = label(operation, textFill: black, style: "-fx-font-size: 20pt;")
@@ -97,8 +98,8 @@ GroovyFX.start {
                         def answer = Double.parseDouble(answerTextField.getText()) 
                         if(operation == "Addition"){
                             if(answer == firstNumber + secondNumber){
-                                score += 10
-                                scoreLable.setText(score+"")
+                                points += 10
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Very Good")
                                 firstNumber = getRandomInterger()
                                 firstNumberLable.setText(firstNumber+"")
@@ -106,14 +107,14 @@ GroovyFX.start {
                                 secondNumberLable.setText(secondNumber+"")
                                 answerTextField.setText("")
                             } else {
-                                score -= 5
-                                scoreLable.setText(score+"")
+                                points -= 5
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Try Again")
                             }
                         } else if(operation == "Subtraction"){
                             if(answer == firstNumber - secondNumber){
-                                score += 10
-                                scoreLable.setText(score+"")
+                                points += 10
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Very Good")
                                 firstNumber = getRandomInterger()
                                 firstNumberLable.setText(firstNumber+"")
@@ -121,14 +122,14 @@ GroovyFX.start {
                                 secondNumberLable.setText(secondNumber+"")
                                 answerTextField.setText("")
                             } else {
-                                score -= 5
-                                scoreLable.setText(score+"")
+                                spoints -= 5
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Try Again")
                             }
                         } else if(operation == "Multiplication"){
                             if(answer == firstNumber * secondNumber){
-                                score += 10
-                                scoreLable.setText(score+"")
+                                points += 10
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Very Good")
                                 firstNumber = getRandomInterger()
                                 firstNumberLable.setText(firstNumber+"")
@@ -136,15 +137,15 @@ GroovyFX.start {
                                 secondNumberLable.setText(secondNumber+"")
                                 answerTextField.setText("")
                             } else {
-                                score -= 5
-                                scoreLable.setText(score+"")
+                                points -= 5
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Try Again")
                             }
                         } else if(operation == "Division"){
                             def correctAnswer = firstNumber / secondNumber
                             if(answer == (Math.round(correctAnswer * 10) / 10)){
-                                score += 10
-                                scoreLable.setText(score+"")
+                                points += 10
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Very Good")
                                 firstNumber = getRandomInterger()
                                 firstNumberLable.setText(firstNumber+"")
@@ -152,15 +153,15 @@ GroovyFX.start {
                                 secondNumberLable.setText(secondNumber+"")
                                 answerTextField.setText("")
                             } else {
-                                score -= 5
-                                scoreLable.setText(score+"")
+                                points -= 5
+                                pointsLable.setText(points+"")
                                 feedbackLable.setText("Try Again")
                             }
                         } else{
                             feedbackLable.setText("Something went wrong!")
                         }
 
-                        currentScore = new Score(score, new java.util.Date())
+                        currentScore = new Score(1, points, new java.util.Date())
                         scoreDAO.update(currentScore, db)
                     }
                 })
