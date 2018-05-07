@@ -10,6 +10,7 @@ import groovyx.javafx.SceneGraphBuilder
 import java.util.Random
 import models.dao.*
 import models.entities.*
+import controllers.*
 
 GroovyFX.start {
 
@@ -26,10 +27,11 @@ GroovyFX.start {
     def operationLable, signLable, firstNumberLable, secondNumberLable, feedbackLable, pointsLable
     def answerTextField
 
-    //create a score for  today
-    def currentScore = new Score(points, new java.util.Date())
-    def scoreDAO = new ScoreDAO()
-    scoreDAO.create(currentScore, db)
+    //get today's score
+    ScoreDAO scoreDAO = new ScoreDAO()
+    def mainController = new MainController()
+    def currentScore = mainController.getCurrentScore(db)
+    points = currentScore.getPoints()
 
   sg.stage(title: "Groovy School Arithmetic Game", visible: true) {
     scene(width: 400, height: 500) {
@@ -161,7 +163,7 @@ GroovyFX.start {
                             feedbackLable.setText("Something went wrong!")
                         }
 
-                        currentScore = new Score(1, points, new java.util.Date())
+                        currentScore.setPoints(points)
                         scoreDAO.update(currentScore, db)
                     }
                 })
