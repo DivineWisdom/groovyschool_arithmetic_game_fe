@@ -31,7 +31,6 @@ public class MainController {
                 return score
             }
         }
-
         return null
     }
 }
