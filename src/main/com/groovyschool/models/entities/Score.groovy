@@ -7,6 +7,8 @@ public class Score {
     private def id
     private def points
     private def date
+    private def dateString
+
     def dateFormater = new SimpleDateFormat("dd/MM/yyyy")
 
     Score(id, points, date) {
@@ -48,5 +50,13 @@ public class Score {
 
     public void setDate(date) {
         this.date = dateFormater.parse(dateFormater.format(date))
+    }
+
+    def getDateString() {
+        return dateString
+    }
+
+    void setDateString(dateString) {
+        this.dateString = dateString
     }
 }

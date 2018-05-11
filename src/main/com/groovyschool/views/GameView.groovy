@@ -21,7 +21,8 @@ public class GameView extends Stage{
     def mainScene = new Scene(rootVbox,400,500)
     def menuBar = new MenuBar()
     def operationMenu = new Menu("Operation")
-    public def scoreMenu = new Menu("All Scores")
+    public def scoresMenu = new Menu("Scores")
+    public def showScoresMenuItem = new MenuItem("Show Scores")
     public def additionMenuItem = new MenuItem("Addition")
     public def subtractionMenuItem = new MenuItem("Subtraction")
     public def multiplicationMenuItem = new MenuItem("Multiplication")
@@ -43,7 +44,8 @@ public class GameView extends Stage{
 
      def initGameView(){
          this.operationMenu.getItems().addAll(additionMenuItem, subtractionMenuItem, multiplicationMenuItem, divisionMenuItem)
-         this.menuBar.getMenus().addAll(operationMenu, scoreMenu)
+         this.scoresMenu.getItems().addAll(showScoresMenuItem)
+         this.menuBar.getMenus().addAll(operationMenu, scoresMenu)
          this.pointsHbox.setPadding(new Insets(5, 25, 0, 0))
          this.pointsHbox.setAlignment(Pos.CENTER_RIGHT)
          this.pointsLabel.setTextFill(Paint.valueOf("black"))

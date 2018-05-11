@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import models.dao.*
 import models.entities.*
 import controllers.*
+import views.*
 
 
 public class GameController {
@@ -66,6 +67,13 @@ public class GameController {
 
             public void handle(ActionEvent event) {
                 gotoDivision(event)
+            }
+        })
+
+        gameView.showScoresMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                gotoScoresView(event)
             }
         })
     }
@@ -174,6 +182,12 @@ public class GameController {
         gameView.operationLabel.setText("Division")
         gameView.signLabel.setText("\u00F7")
         refresh()
+    }
+
+    def gotoScoresView(event){
+        def scoresView = new ScoresView()
+        def scoresController = new ScoresController(scoresView, this.db)
+        this.gameView.close()
     }
 
 }
